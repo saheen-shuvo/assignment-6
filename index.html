@@ -25,7 +25,7 @@
   <body>
     <header>
       <!-- NAV BAR -->
-      <nav class="px-2 pt-2 lg:px-24 lg:pt-10">
+      <nav class="px-2 pt-2 lg:px-24 lg:pt-5">
         <div class="navbar bg-base-100 justify-between">
             <!-- COLLAPSED MENU FOR SM DEVICE -->
             <div class="block lg:hidden ">
@@ -46,7 +46,7 @@
                   </div>
                   <ul
                     tabindex="0"
-                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow">
                     <li><a>Home</a></li>
                     <li><a>Shop</a></li>
                     <li><a>Contact</a></li>
@@ -61,7 +61,7 @@
           </div>
 
             <!-- MENU -->
-          <div class="hidden gap-2 lg:gap-4 font-style text-sm lg:text-base  lg:flex">
+          <div class="hidden gap-2 lg:gap-10 font-style text-sm lg:text-base  lg:flex">
             <button>Home</button>
             <button>Shop</button>
             <button>Contact</button>
@@ -97,6 +97,21 @@
           </div>
         </div>
       </nav>
+
+      <!-- BANNER -->
+      <section class="px-2 pt-2 lg:px-24 lg:pt-10">
+        <!-- BANNER TEXT -->
+        <div class="flex flex-col justify-center items-center">
+            <h3 class=" text-center font-style text-lg font-semibold text-gray-700">...Bringing Families Together...</h3>
+            <h1 class=" text-center text-5xl font-bold pt-4">Your Path to Adoption <br>Starts Here</h1>
+            <p class="font-style text-sm text-center pt-4 px-6">Welcome to Petify, your one-stop shop for all things furry, feathered, and fabulous!<br> We offer high-quality pet products, expert care advice, and a friendly atmosphere for all pet lovers.</p>
+            <button class="btn w-32 mt-6 bg-[#0E7A81] text-white">View More</button>
+        </div>
+        <!-- BANNER IMG -->
+         <div class="flex justify-center w-full pt-4">
+            <img class="w-full lg:w-[80%]" src="./images/pet.webp" alt="">
+         </div>
+      </section>
     </header>
   </body>
 </html>
