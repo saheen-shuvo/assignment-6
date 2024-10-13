@@ -6,14 +6,29 @@ function loadPetCategories() {
     .catch((error) => console.log(error));
 }
 
+// Remove Active Class from Category buttons
+const removeActiveClass =() => {
+  const buttons = document.getElementsByClassName("button-category");
+  for (let btn of buttons){
+    btn.classList.remove("active");
+  }
+}
+
 // Load Category Pets
 const loadCategoryPets = (id) => {
   fetch(`https://openapi.programming-hero.com/api/peddy/category/${id}`)
-  .then((res) => res.json())
-  .then((data) => displayLeftCards(data.data))
-  .catch((error) => console.log(error));
+    .then((res) => res.json())
+    .then((data) => {
+      // Remove active class
+      removeActiveClass();
+      // Add active class
+      const activeBtn = document.getElementById(`btn-${id}`);
+      activeBtn.classList.add("active");
+      displayLeftCards(data.data)
+    })
+    .catch((error) => console.log(error));
+};
 
-}
 // data.categories[1].category
 
 // {
@@ -96,18 +111,20 @@ const loadCategoryPets = (id) => {
 //   ]
 // }
 
+
+
 // Display Pets Categories
 const displayPetCategories = (categories) => {
   const categoryContainer = document.getElementById("categories");
 
   categories.forEach((item) => {
-    console.log(categories);
     // Creating CATEGORY Button
     const buttonContainer = document.createElement("div");
+
     buttonContainer.innerHTML = `
         <div class="px-2 pt-2 lg:px-24 lg:pt-10">
 
-        <button id="btn-${item.id}" onclick="loadCategoryPets('${item.category}')" class="btn button-category rounded-md py-1 lg:rounded-full w-auto lg:w-40 font-bold"><img class="w-5 h-5 lg:w-8 lg:h-8" src="${item.category_icon}"/> ${item.category}</button>
+        <button id="btn-${item.category}" onclick="loadCategoryPets('${item.category}')" class="flex items-center gap-1 px-2 lg:gap-22 border-2 justify-center button-category rounded-md py-2 lg:rounded-full w-auto lg:w-40 font-bold"><img class="w-5 h-5 lg:w-8 lg:h-8" src="${item.category_icon}"/> ${item.category}</button>
 
         </div>
         `;
@@ -127,10 +144,24 @@ const loadLeftCards = () => {
 // Display Left Cards
 const displayLeftCards = (pets) => {
   const leftCardContainer = document.getElementById("left-card-container");
-  leftCardContainer.innerHTML= "";
+  leftCardContainer.innerHTML = "";
+
+  if (pets.length === 0) {
+    leftCardContainer.classList.remove("grid");
+    leftCardContainer.innerHTML = `
+    <div class="flex flex-col justify-center items-center pt-10">
+        <img src="./images/error.webp"/>
+        <h1 class="font-style text-center text-lg lg:text-3xl font-extrabold">No Information Available</h1>
+        <p class="text-center px-0 lg:px-24 text-xs lg:text-base">"No information is currently available for this section. Please check back later for updates or contact us for details."</p>
+    </div>
+    `;
+    return;
+  }
+  else {
+    leftCardContainer.classList.add("grid");
+  }
 
   pets.forEach((pet) => {
-    console.log(pet);
 
     const leftSideCards = document.createElement("div");
     leftSideCards.classList = "card card-compact border-2";
@@ -143,14 +174,25 @@ const displayLeftCards = (pets) => {
   <div class="px-2 py-2">
     <h1 class="text-xl font-bold">${pet.pet_name}</h1>
 
-    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=50&id=46218&format=png"/>Breed: ${typeof pet.breed === 'undefined' ? "Not Available" : `${pet.breed}`}</h4>
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=50&id=46218&format=png"/>Breed: ${
+      typeof pet.breed === "undefined" ? "Not Available" : `${pet.breed}`
+    }</h4>
 
-    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=80&id=GlEOr5x0aJpH&format=png"/>Date of Birth: ${typeof pet.date_of_birth === 'undefined' || pet.date_of_birth === null ? "Not Known" : `${pet.date_of_birth}`}</h4>
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=80&id=GlEOr5x0aJpH&format=png"/>Date of Birth: ${
+      typeof pet.date_of_birth === "undefined" || pet.date_of_birth === null
+        ? "Not Known"
+        : `${pet.date_of_birth}`
+    }</h4>
 
-    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=50&id=121&format=png"/>Price: ${pet.price === null ? "Stock Out" : `${pet.price}$`}</h4>
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=50&id=121&format=png"/>Price: ${
+      pet.price === null ? "Stock Out" : `${pet.price}$`
+    }</h4>
     
-    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=24&id=B9uZ6V1hUMCF&format=png"/>Gender: ${typeof pet.gender === 'undefined' ? "Not Known" : `${pet.gender}`}</h4>
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=24&id=B9uZ6V1hUMCF&format=png"/>Gender: ${
+      typeof pet.gender === "undefined" ? "Not Known" : `${pet.gender}`
+    }</h4>
   </div>
+
   <div class="flex items-center justify-between px-3 py-2">
   <button class="border-2 px-3 py-1 rounded-lg "><img src='https://img.icons8.com/?size=24&id=82788&format=png'/></button>
   <button class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Adopt</button>

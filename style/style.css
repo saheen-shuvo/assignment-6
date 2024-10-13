@@ -1,3 +1,7 @@
 .font-style {
   font-family: "Lato", sans-serif;
 }
+.active{
+  border: 2px solid #0E7A81;
+  color:#0E7A81
+}
