@@ -29,6 +29,61 @@ const loadCategoryPets = (id) => {
     .catch((error) => console.log(error));
 };
 
+// Load Pet Details
+const loadPetDetails = async (petId) => {
+  console.log(petId);
+  const url = `https://openapi.programming-hero.com/api/peddy/pet/${petId}`;
+  const res = await fetch(url)
+  const data = await res.json()
+  displayPetDetails(data.petData);
+};
+
+// Display Pet Details
+const displayPetDetails = (petData) => {
+  console.log(petData);
+  const detailsContainer = document.getElementById("modal-content");
+
+  detailsContainer.innerHTML = `
+      <img class="h-full w-full object-cover rounded-xl"
+      src=${petData.image}
+      alt="Shoes" />
+      <div class="px-2 py-2">
+            <h1 class="text-xl font-bold">${petData.pet_name}</h1>
+      <div class="flex gap-0 lg:gap-3 flex-col lg:flex-row">
+      <div>
+      <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=50&id=46218&format=png"/>Breed: ${
+      typeof petData.breed === "undefined" ? "Not Available" : `${petData.breed}`
+    }</h4>
+
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=80&id=GlEOr5x0aJpH&format=png"/>Date of Birth: ${
+      typeof petData.date_of_birth === "undefined" || petData.date_of_birth === null
+        ? "Not Known"
+        : `${petData.date_of_birth}`
+    }</h4>
+
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=50&id=121&format=png"/>Price: ${
+      petData.price === null ? "Stock Out" : `${petData.price}$`
+    }</h4>
+      </div>
+    
+    <div>
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=24&id=B9uZ6V1hUMCF&format=png"/>Gender: ${
+      typeof petData.gender === "undefined" ? "Not Known" : `${petData.gender}`
+    }</h4>
+
+    <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=32&id=19195&format=png"/>Vaccinated Status: ${
+      typeof petData.vaccinated_status === "undefined" ? "Not Known" : `${petData.vaccinated_status}`
+    }</h4>
+    </div>
+      </div>
+      <div class="divider py-0 my-0"></div>
+    <h1 class="text-base font-bold">Details Information</h1>
+    <p class="text-sm">${petData.pet_details}</p>
+  </div>
+  `
+  document.getElementById("customModal").showModal();
+}
+
 // data.categories[1].category
 
 // {
@@ -196,10 +251,9 @@ const displayLeftCards = (pets) => {
   <div class="flex items-center justify-between px-3 py-2">
   <button class="border-2 px-3 py-1 rounded-lg "><img src='https://img.icons8.com/?size=24&id=82788&format=png'/></button>
   <button class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Adopt</button>
-  <button class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Details</button>
+  <button onclick="loadPetDetails('${pet.petId}')" class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Details</button>
   </div>
     `;
-
     leftCardContainer.append(leftSideCards);
   });
 };
