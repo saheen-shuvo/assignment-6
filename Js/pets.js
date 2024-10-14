@@ -72,7 +72,7 @@ const displayPetDetails = (petData) => {
     }</h4>
 
     <h4 class="flex items-center gap-1"><img class="w-4 h-4" src="https://img.icons8.com/?size=32&id=19195&format=png"/>Vaccinated Status: ${
-      typeof petData.vaccinated_status === "undefined" ? "Not Known" : `${petData.vaccinated_status}`
+      typeof petData.vaccinated_status === "undefined" || petData.vaccinated_status === null ? "Not Known" : `${petData.vaccinated_status}`
     }</h4>
     </div>
       </div>
@@ -173,11 +173,12 @@ const displayPetCategories = (categories) => {
   const categoryContainer = document.getElementById("categories");
 
   categories.forEach((item) => {
+
     // Creating CATEGORY Button
     const buttonContainer = document.createElement("div");
 
     buttonContainer.innerHTML = `
-        <div class="px-2 pt-2 lg:px-24 lg:pt-10">
+        <div class="pt-2 lg:pt-10">
 
         <button id="btn-${item.category}" onclick="loadCategoryPets('${item.category}')" class="flex items-center gap-1 px-2 lg:gap-22 border-2 justify-center button-category rounded-md py-2 lg:rounded-full w-auto lg:w-40 font-bold"><img class="w-5 h-5 lg:w-8 lg:h-8" src="${item.category_icon}"/> ${item.category}</button>
 
@@ -249,7 +250,7 @@ const displayLeftCards = (pets) => {
   </div>
 
   <div class="flex items-center justify-between px-3 py-2">
-  <button class="border-2 px-3 py-1 rounded-lg "><img src='https://img.icons8.com/?size=24&id=82788&format=png'/></button>
+  <button id="likeButton-${pet.petId}" class="border-2 px-3 py-1 rounded-lg "><img src='https://img.icons8.com/?size=24&id=82788&format=png'/></button>
   <button class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Adopt</button>
   <button onclick="loadPetDetails('${pet.petId}')" class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Details</button>
   </div>
@@ -257,6 +258,12 @@ const displayLeftCards = (pets) => {
     leftCardContainer.append(leftSideCards);
   });
 };
+
+// Take me to the main section using a button clicked
+document.getElementById('scrollButton').addEventListener('click', function() {
+  document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+});
+
 
 loadPetCategories();
 loadLeftCards();
