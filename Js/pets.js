@@ -197,6 +197,57 @@ const loadLeftCards = () => {
     .catch((error) => console.log(error));
 };
 
+// Load Right Card
+const loadRightCards = (img) => {
+  console.log(img);
+  const rightContainer = document.getElementById("right-card-container")
+  const likedImage = document.createElement("img")
+  likedImage.src= img;
+  likedImage.classList.add("rounded-lg")
+  rightContainer.appendChild(likedImage);
+}
+
+// Sort By Price
+const sortByPrice = () => {
+    fetch("https://openapi.programming-hero.com/api/peddy/pets")
+    .then((res) => res.json())
+    .then((data) =>{
+      const sortedPrice = data.pets.sort((a, b) => b.price - a.price);
+      displayLeftCards(sortedPrice);
+    })
+    .catch((error) => console.log(error));
+}
+
+// Adopted Button Clicked
+const adoptedPet = async (petId) => {
+  console.log(petId);
+  const url = `https://openapi.programming-hero.com/api/peddy/pet/${petId}`;
+  const res = await fetch(url)
+  const data = await res.json()
+  showAdoptionModal(data);
+}
+
+function showAdoptionModal() {
+  const modal = document.getElementById('congratsModal');
+  const countdownElement = document.getElementById('countdown');
+  let countdown = 3;
+
+  // Show the modal
+  modal.classList.add('modal-open');
+
+  // Update the countdown every second
+  const countdownInterval = setInterval(function () {
+      countdown -= 1;
+      countdownElement.textContent = countdown;
+
+      // When the countdown reaches 0, close the modal
+      if (countdown <= 0) {
+          clearInterval(countdownInterval);
+          modal.classList.remove('modal-open');
+      }
+  }, 1000);
+}
+
 // Display Left Cards
 const displayLeftCards = (pets) => {
   const leftCardContainer = document.getElementById("left-card-container");
@@ -250,8 +301,8 @@ const displayLeftCards = (pets) => {
   </div>
 
   <div class="flex items-center justify-between px-3 py-2">
-  <button id="likeButton-${pet.petId}" class="border-2 px-3 py-1 rounded-lg "><img src='https://img.icons8.com/?size=24&id=82788&format=png'/></button>
-  <button class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Adopt</button>
+  <button id="likeButton-${pet.petId}" onclick="loadRightCards('${pet.image}')" class="border-2 px-3 py-1 rounded-lg "><img src='https://img.icons8.com/?size=24&id=82788&format=png'/></button>
+  <button onclick="adoptedPet(${pet.petId})" class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Adopt</button>
   <button onclick="loadPetDetails('${pet.petId}')" class="border-2 px-3 py-1 rounded-lg text-[#0E7A81] font-semibold">Details</button>
   </div>
     `;

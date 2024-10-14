@@ -67,9 +67,24 @@
           <div
             class="hidden gap-2 lg:gap-10 font-style text-sm lg:text-base lg:flex font-semibold"
           >
-            <button><a href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d">Home</a></button>
-            <button><a href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d">Shop</a></button>
-            <button><a href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d">Contact</a></button>
+            <button>
+              <a
+                href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d"
+                >Home</a
+              >
+            </button>
+            <button>
+              <a
+                href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d"
+                >Shop</a
+              >
+            </button>
+            <button>
+              <a
+                href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d"
+                >Contact</a
+              >
+            </button>
           </div>
 
           <!-- PROFILE -->
@@ -92,10 +107,25 @@
                 class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 p-2 shadow"
               >
                 <li>
-                  <a class="justify-between"  href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d"> Profile </a>
+                  <a
+                    class="justify-between"
+                    href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d"
+                  >
+                    Profile
+                  </a>
                 </li>
-                <li><a  href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d">Settings</a></li>
-                <li><a  href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d">Logout</a></li>
+                <li>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d"
+                    >Settings</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100073448886611&mibextid=LQQJ4d"
+                    >Logout</a
+                  >
+                </li>
               </ul>
             </div>
           </div>
@@ -120,7 +150,10 @@
             We offer high-quality pet products, expert care advice, and a
             friendly atmosphere for all pet lovers.
           </p>
-          <button id="scrollButton" class="btn w-32 mt-6 bg-[#0E7A81] text-white">
+          <button
+            id="scrollButton"
+            class="btn w-32 mt-6 bg-[#0E7A81] text-white"
+          >
             View More
           </button>
         </div>
@@ -138,7 +171,7 @@
         <div><h1 class="text-xl font-bold">Best Deal For You</h1></div>
         <div>
           <button
-            class="bg-[#0E7A81] text-white px-2 lg:px-4 py-3 rounded-lg text-xs lg:text-base font-semibold"
+            onclick="sortByPrice()" class="bg-[#0E7A81] text-white px-2 lg:px-4 py-3 rounded-lg text-xs lg:text-base font-semibold"
           >
             Sort By Price
           </button>
@@ -146,19 +179,20 @@
       </div>
 
       <!-- Whole LEFT RIGHT SECTIONS -->
-       <div class="flex gap-2">
-              <!-- CARDS LEFT -->
-      <section
-      id="left-card-container"
-      class="w-[70%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 py-10"
-    ></section>
+      <div class="flex gap-2">
+        <!-- CARDS LEFT -->
+        <section
+          id="left-card-container"
+          class="w-[70%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 py-10"
+        ></section>
 
-    <!-- CARD RIGHT -->
-    <section id="right-card-section" class="w-[30%] grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-5 py-10">
-      <div id="right-card-container">hi</div>
-    </section>
-       </div>
-
+        <!-- CARD RIGHT -->
+        <section
+          id="right-card-container"
+          class="w-[30%] h-[90%] grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-2 px-2 py-2 mt-10 rounded-xl border-2"
+        >
+        </section>
+      </div>
     </main>
     <footer
       class="footer bg-[#0c0c0cf3] text-base-content px-10 py-10 lg:px-24 text-white w-full"
@@ -280,6 +314,15 @@
         </div>
       </div>
     </dialog>
+
+    <!-- DaisyUI Modal Structure -->
+    <div id="congratsModal" class="modal">
+      <div class="modal-box flex flex-col justify-center">
+        <img class="w-20 h-20 mx-auto" src="https://img.icons8.com/?size=50&id=66918&format=png" alt="">
+        <h2 class="font-bold text-2xl text-center">Congratulations!</h2>
+        <p id="countdownText" class="py-4 text-center">Adoption Process is Starting in<br> <span class="text-4xl font-bold" id="countdown">3</span></p>
+      </div>
+    </div>
 
     <script src="./Js/pets.js"></script>
   </body>
